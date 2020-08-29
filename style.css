@@ -1,5 +1,5 @@
-body {
-  background-color: #000;
+.page {
+background-color: #4d4d4d;
 }
 
 .picture {
@@ -9,7 +9,7 @@ body {
 }
 
 .card {
-  background-color: #ffc2b3;
+  background-color:    #f9ecec;
   border-radius: 1rem;
   margin: 1rem;
 }
