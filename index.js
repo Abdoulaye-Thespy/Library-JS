@@ -28,10 +28,20 @@ let myLibrary = [
 ];
 
 let cont = document.getElementById('books');
+let createButton = document.getElementById('create');
+
+
+createButton.onclick = function Book() {
+  // the constructor...
+  console.log("Welcome to consructor")
+}
+
+function addBookToLibrary() {
+  // do stuff here
+}
 
 
 function render() {
- let cont = document.getElementById('books');
  
  for (let i=0; i < myLibrary.length; i++) {
  let box =  document.createElement('div');
@@ -61,6 +71,5 @@ function render() {
  cardBody.appendChild(del);
  }
  
- console.log(cardBody);
 };
 
