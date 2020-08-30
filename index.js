@@ -45,14 +45,21 @@ createButton.onclick = function addBookToLibrary() {
   let numberOfPages = document.getElementById('orangeForm-np').value;
   let newBook = new Book(name, author, numberOfPages);
   myLibrary.push(newBook);
-  render();
   console.log(myLibrary);
+  render(name, author, numberOfPages);
 }
 
 
-function render() {
- 
  for (let i=0; i < myLibrary.length; i++) {
+     let name = myLibrary[i].name;
+     let author = myLibrary[i].author;
+     let numberOfPages = myLibrary[i].numberOfPages;
+     render(name, author, numberOfPages);
+ }
+ 
+function render(name, author, numberOfPages) {
+ 
+
  let box =  document.createElement('div');
  box.className = 'col-md-4';
  cont.appendChild(box);
@@ -68,17 +75,17 @@ function render() {
  card.appendChild(cardBody);
  let cardTitle = document.createElement('h4');
  cardTitle.className = 'card-title';
- cardTitle.appendChild(document.createTextNode(myLibrary[i].name));
+ cardTitle.appendChild(document.createTextNode(name));
  cardBody.appendChild(cardTitle);
  let bookDescription = document.createElement('p');
  bookDescription.className = 'card-text';
- bookDescription.appendChild(document.createTextNode(myLibrary[i].numberOfPages));
+ bookDescription.appendChild(document.createTextNode(author));
  cardBody.appendChild(bookDescription);
  let del = document.createElement('a');
  del.className = 'btn btn-danger';
  del.appendChild(document.createTextNode('Delete'));
  cardBody.appendChild(del);
- }
+
  
 };
 
