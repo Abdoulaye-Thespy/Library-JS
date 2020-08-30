@@ -31,13 +31,22 @@ let cont = document.getElementById('books');
 let createButton = document.getElementById('create');
 
 
-createButton.onclick = function Book() {
+function Book(name, author, numberOfPages) {
   // the constructor...
-  console.log("Welcome to consructor")
+ this.name=name;
+ this.author=author;
+ this.numberOfPages=numberOfPages;
 }
 
-function addBookToLibrary() {
+createButton.onclick = function addBookToLibrary() {
   // do stuff here
+  let name = document.getElementById('orangeForm-name').value
+  let author = document.getElementById('orangeForm-author').value
+  let numberOfPages = document.getElementById('orangeForm-np').value;
+  let newBook = new Book(name, author, numberOfPages);
+  myLibrary.push(newBook);
+  render();
+  console.log(myLibrary);
 }
 
 
