@@ -1,5 +1,7 @@
 # Library-JS
 
+## [LiveDemo](https://abdoulaye-thespy.github.io/Library-JS/)
+
 ## Project descipription
 
 - As this project is still under reviews when you enter new book, it gets saved to localstorage.
