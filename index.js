@@ -3,6 +3,7 @@
 
 let cont = document.getElementById('books');
 let createButton = document.getElementById('create');
+let deleteButton = document.getElementById('books');
 
 
 function Book(name, author, numberOfPages) {
@@ -22,7 +23,17 @@ createButton.onclick = function addBookToLibrary() {
   console.log(myLibrary);
   render(name, author, numberOfPages);
   
-  save()
+  save();
+}
+
+deleteButton.onclick = function delete_book(e) {
+      if(e.target.className=='btn btn-danger'){
+    if(confirm('Are You Sure?')){
+        let book = e.target.parentElement.parentElement.parentElement;
+        cont.removeChild(book);
+       console.log(book);
+    }
+  }
 }
 
 
@@ -71,6 +82,13 @@ function save() {
 }
 
 function fetch() {
+if (localStorage.getItem('books') == null){
+    console.log("razak");
+     localStorage.setItem('books', JSON.stringify([]));
+     return JSON.parse(localStorage['books']);
+}
+else {
  return JSON.parse(localStorage['books']);
  console.log("inside fetch");
+}
 }
