@@ -1,31 +1,5 @@
 
-
-
-let myLibrary = [
-{ name: "Les miserables",
-  author: "Victor Hugo",
-  numberOfPages: 1600
-} ,  
-{ name: "Une saison blanche et Seche",
-  author: "André Brink",
-  numberOfPages: 1600
-} ,  
-{ name: "Père inconnu",
-  author: "Victor Hugo",
-  numberOfPages: 1600
-} ,  
-{ name: "La Croix du Sud",
-  author: "Joseph Ngoué",
-  numberOfPages: 1600
-}
- ,  
-{ name: "Sous la cendre le feu",
-  author: "Evelyne Mpoudi Ngollé",
-  numberOfPages: 1600
-}
-   
-    
-];
+ let myLibrary = fetch();
 
 let cont = document.getElementById('books');
 let createButton = document.getElementById('create');
@@ -47,6 +21,8 @@ createButton.onclick = function addBookToLibrary() {
   myLibrary.push(newBook);
   console.log(myLibrary);
   render(name, author, numberOfPages);
+  
+  save()
 }
 
 
@@ -89,3 +65,12 @@ function render(name, author, numberOfPages) {
  
 };
 
+function save() {
+  let JSONReadymyLibrary = JSON.stringify(myLibrary);
+  (localStorage.setItem('books', JSONReadymyLibrary));
+}
+
+function fetch() {
+ return JSON.parse(localStorage['books']);
+ console.log("inside fetch");
+}
