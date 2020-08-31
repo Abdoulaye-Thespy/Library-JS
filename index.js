@@ -4,6 +4,7 @@
 let cont = document.getElementById('books');
 let createButton = document.getElementById('create');
 let deleteButton = document.getElementById('books');
+let readBtn = document.getElementById('boxbox');
 
 
 function Book(name, author, numberOfPages) {
@@ -12,6 +13,8 @@ function Book(name, author, numberOfPages) {
  this.author=author;
  this.numberOfPages=numberOfPages;
 }
+
+Book.prototype.readStatus= "Not read";
 
 createButton.onclick = function addBookToLibrary() {
   // do stuff here
@@ -27,12 +30,17 @@ createButton.onclick = function addBookToLibrary() {
 }
 
 deleteButton.onclick = function delete_book(e) {
-      if(e.target.className=='btn btn-danger'){
+      if(e.target.className == 'btn btn-danger bbd'){
     if(confirm('Are You Sure?')){
         let book = e.target.parentElement.parentElement.parentElement;
         cont.removeChild(book);
-       console.log(book);
     }
+  }
+}
+
+readBtn.onclick = function delete_book(e) {
+      if(e.target.className=='btn btn-success'){
+        e.target.innerHTML="READ";
   }
 }
 
@@ -41,11 +49,12 @@ deleteButton.onclick = function delete_book(e) {
      let name = myLibrary[i].name;
      let author = myLibrary[i].author;
      let numberOfPages = myLibrary[i].numberOfPages;
-     render(name, author, numberOfPages);
+     let readstatus = myLibrary[i].readStatus;
+     console.log(readstatus);
+     render(name, author, numberOfPages, readstatus);
  }
  
-function render(name, author, numberOfPages) {
- 
+function render(name, author, numberOfPages, readstatus) {
 
  let box =  document.createElement('div');
  box.className = 'col-md-4';
@@ -60,20 +69,28 @@ function render(name, author, numberOfPages) {
  let cardBody = document.createElement('div');
  cardBody.className = 'card-body';
  card.appendChild(cardBody);
- let cardTitle = document.createElement('h4');
+ let cardTitle = document.createElement('h3');
  cardTitle.className = 'card-title';
  cardTitle.appendChild(document.createTextNode(name));
  cardBody.appendChild(cardTitle);
  let bookDescription = document.createElement('p');
  bookDescription.className = 'card-text';
- bookDescription.appendChild(document.createTextNode(author));
+ bookDescription.appendChild(document.createTextNode(`Author: ${author}`));
  cardBody.appendChild(bookDescription);
+ let numPage = document.createElement('h4');
+ numPage.className = 'card-title';
+ numPage.appendChild(document.createTextNode(`${numberOfPages} PAGES.`));
+ cardBody.appendChild(numPage);
  let del = document.createElement('a');
- del.className = 'btn btn-danger';
+ del.className = 'btn btn-danger bbd';
  del.appendChild(document.createTextNode('Delete'));
  cardBody.appendChild(del);
+ let readOrNot = document.createElement('a');
+ readOrNot.className = 'btn btn-success';
+ readOrNot.appendChild(document.createTextNode("NOT READ"));
+ cardBody.appendChild(readOrNot);
 
- 
+
 };
 
 function save() {
@@ -83,7 +100,6 @@ function save() {
 
 function fetch() {
 if (localStorage.getItem('books') == null){
-    console.log("razak");
      localStorage.setItem('books', JSON.stringify([]));
      return JSON.parse(localStorage['books']);
 }
