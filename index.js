@@ -34,7 +34,6 @@ function validateForm() {
   const author = document.getElementById('orangeForm-author').value;
   const numberOfPages = document.getElementById('orangeForm-np').value;
   if (name === '' || author === '' || numberOfPages === '') {
-    alert('All the fields must be filled out');
     return false;
   }
   return true;
@@ -102,15 +101,13 @@ createButton.onclick = function addBookToLibrary() {
     save();
 
     for (let i = 0, len = cont.children.length; i < len; i += 1) {
-      (function () {
-        cont.children[i].onclick = function (e) {
+      (function removBook() {
+        cont.children[i].onclick = function removeBook(e) {
           if (e.target.className === 'btn btn-danger bbd') {
-            if (confirm('Deleted Book?')) {
-              const book = e.target.parentElement.parentElement.parentElement;
-              cont.removeChild(book);
-              myLibrary.splice(i, 1);
-              save();
-            }
+            const book = e.target.parentElement.parentElement.parentElement;
+            cont.removeChild(book);
+            myLibrary.splice(i, 1);
+            save();
           }
         };
       }(i));
