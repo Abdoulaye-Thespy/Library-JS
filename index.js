@@ -40,20 +40,19 @@ createButton.onclick = function addBookToLibrary() {
     render(name, author, numberOfPages);
     save();
 
-for (let i = 0, len = cont.children.length; i < len; i++)
-{
-
-    (function(){
-        cont.children[i].onclick = function(e){
-            if (e.target.className === 'btn btn-danger bbd')
-              {confirm("Deleted Book?");
+    for (let i = 0, len = cont.children.length; i < len; i++) {
+      (function () {
+        cont.children[i].onclick = function (e) {
+          if (e.target.className === 'btn btn-danger bbd') {
+            confirm('Deleted Book?');
             const book = e.target.parentElement.parentElement.parentElement;
             cont.removeChild(book);
-            myLibrary.splice(i,1);
-            save(); 
-            }       }    
-    })(i);
-}
+            myLibrary.splice(i, 1);
+            save();
+          }
+        };
+      }(i));
+    }
   }
 };
 
@@ -130,7 +129,7 @@ function render(name, author, numberOfPages) {
 //             const book = e.target.parentElement.parentElement.parentElement;
 //             cont.removeChild(book);
 //             myLibrary.splice(i,1);
-//             save(); 
-//             }       }    
+//             save();
+//             }       }
 //     })(i);
 // }
