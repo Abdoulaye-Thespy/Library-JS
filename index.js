@@ -38,8 +38,22 @@ createButton.onclick = function addBookToLibrary() {
     const newBook = new Book(name, author, numberOfPages);
     myLibrary.push(newBook);
     render(name, author, numberOfPages);
-
     save();
+
+for (let i = 0, len = cont.children.length; i < len; i++)
+{
+
+    (function(){
+        cont.children[i].onclick = function(e){
+            if (e.target.className === 'btn btn-danger bbd')
+              {confirm("Deleted Book?");
+            const book = e.target.parentElement.parentElement.parentElement;
+            cont.removeChild(book);
+            myLibrary.splice(i,1);
+            save(); 
+            }       }    
+    })(i);
+}
   }
 };
 
@@ -106,16 +120,17 @@ function render(name, author, numberOfPages) {
   cardBody.appendChild(readOrNot);
 }
 
-  for (let i = 0, len = cont.children.length; i < len; i++)
-{
+//   for (let i = 0, len = cont.children.length; i < len; i++)
+// {
 
-    (function(){
-        cont.children[i].onclick = function(e){
-            if (e.target.className === 'btn btn-danger bbd')
-              {confirm(i);}
-            const book = e.target.parentElement.parentElement.parentElement;
-            cont.removeChild(book);
-            myLibrary.splice(i,1);
-            save();        }    
-    })(i);
-}
+//     (function(){
+//         cont.children[i].onclick = function(e){
+//             if (e.target.className === 'btn btn-danger bbd')
+//               {confirm("Deleted Book?");
+//             const book = e.target.parentElement.parentElement.parentElement;
+//             cont.removeChild(book);
+//             myLibrary.splice(i,1);
+//             save(); 
+//             }       }    
+//     })(i);
+// }
