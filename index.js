@@ -1,9 +1,17 @@
 
+function fetch() {
+  if (localStorage.getItem('books') == null) {
+    localStorage.setItem('books', JSON.stringify([]));
+    return JSON.parse(localStorage.books);
+  }
+
+  return JSON.parse(localStorage.books);
+}
+
 const myLibrary = fetch();
 
 const cont = document.getElementById('books');
 const createButton = document.getElementById('create');
-const deleteButton = document.getElementById('books');
 const readBtn = document.getElementById('boxbox');
 
 
@@ -19,42 +27,6 @@ function save() {
   const JSONReadymyLibrary = JSON.stringify(myLibrary);
   (localStorage.setItem('books', JSONReadymyLibrary));
 }
-
-function fetch() {
-  if (localStorage.getItem('books') == null) {
-    localStorage.setItem('books', JSON.stringify([]));
-    return JSON.parse(localStorage.books);
-  }
-
-  return JSON.parse(localStorage.books);
-}
-
-createButton.onclick = function addBookToLibrary() {
-  // do stuff here
-  if (validateForm()) {
-    const name = document.getElementById('orangeForm-name').value;
-    const author = document.getElementById('orangeForm-author').value;
-    const numberOfPages = document.getElementById('orangeForm-np').value;
-    const newBook = new Book(name, author, numberOfPages);
-    myLibrary.push(newBook);
-    render(name, author, numberOfPages);
-    save();
-
-    for (let i = 0, len = cont.children.length; i < len; i++) {
-      (function () {
-        cont.children[i].onclick = function (e) {
-          if (e.target.className === 'btn btn-danger bbd') {
-            confirm('Deleted Book?');
-            const book = e.target.parentElement.parentElement.parentElement;
-            cont.removeChild(book);
-            myLibrary.splice(i, 1);
-            save();
-          }
-        };
-      }(i));
-    }
-  }
-};
 
 
 function validateForm() {
@@ -74,14 +46,6 @@ readBtn.onclick = function deleteBook(e) {
     e.target.innerHTML = 'READ';
   }
 };
-
-
-for (let i = 0; i < myLibrary.length; i += 1) {
-  const { name } = myLibrary[i];
-  const { author } = myLibrary[i];
-  const { numberOfPages } = myLibrary[i];
-  render(name, author, numberOfPages);
-}
 
 function render(name, author, numberOfPages) {
   const box = document.createElement('div');
@@ -119,17 +83,37 @@ function render(name, author, numberOfPages) {
   cardBody.appendChild(readOrNot);
 }
 
-//   for (let i = 0, len = cont.children.length; i < len; i++)
-// {
+for (let i = 0; i < myLibrary.length; i += 1) {
+  const { name } = myLibrary[i];
+  const { author } = myLibrary[i];
+  const { numberOfPages } = myLibrary[i];
+  render(name, author, numberOfPages);
+}
 
-//     (function(){
-//         cont.children[i].onclick = function(e){
-//             if (e.target.className === 'btn btn-danger bbd')
-//               {confirm("Deleted Book?");
-//             const book = e.target.parentElement.parentElement.parentElement;
-//             cont.removeChild(book);
-//             myLibrary.splice(i,1);
-//             save();
-//             }       }
-//     })(i);
-// }
+createButton.onclick = function addBookToLibrary() {
+  // do stuff here
+  if (validateForm()) {
+    const name = document.getElementById('orangeForm-name').value;
+    const author = document.getElementById('orangeForm-author').value;
+    const numberOfPages = document.getElementById('orangeForm-np').value;
+    const newBook = new Book(name, author, numberOfPages);
+    myLibrary.push(newBook);
+    render(name, author, numberOfPages);
+    save();
+
+    for (let i = 0, len = cont.children.length; i < len; i += 1) {
+      (function () {
+        cont.children[i].onclick = function (e) {
+          if (e.target.className === 'btn btn-danger bbd') {
+            if (confirm('Deleted Book?')) {
+              const book = e.target.parentElement.parentElement.parentElement;
+              cont.removeChild(book);
+              myLibrary.splice(i, 1);
+              save();
+            }
+          }
+        };
+      }(i));
+    }
+  }
+};
