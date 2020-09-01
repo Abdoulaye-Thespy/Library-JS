@@ -55,14 +55,6 @@ function validateForm() {
   return true;
 }
 
-deleteButton.onclick = function deleteBook(e) {
-  if (e.target.className === 'btn btn-danger bbd') {
-    if (confirm('Are You Sure?')) {
-      const book = e.target.parentElement.parentElement.parentElement;
-      cont.removeChild(book);
-    }
-  }
-};
 
 readBtn.onclick = function deleteBook(e) {
   if (e.target.className === 'btn btn-success') {
@@ -112,4 +104,18 @@ function render(name, author, numberOfPages) {
   readOrNot.className = 'btn btn-success';
   readOrNot.appendChild(document.createTextNode('NOT READ'));
   cardBody.appendChild(readOrNot);
+}
+
+  for (let i = 0, len = cont.children.length; i < len; i++)
+{
+
+    (function(){
+        cont.children[i].onclick = function(e){
+            if (e.target.className === 'btn btn-danger bbd')
+              {confirm(i);}
+            const book = e.target.parentElement.parentElement.parentElement;
+            cont.removeChild(book);
+            myLibrary.splice(i,1);
+            save();        }    
+    })(i);
 }
