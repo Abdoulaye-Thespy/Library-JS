@@ -18,6 +18,7 @@ Book.prototype.readStatus= "Not read";
 
 createButton.onclick = function addBookToLibrary() {
   // do stuff here
+  if (validateForm()) {
   let name = document.getElementById('orangeForm-name').value
   let author = document.getElementById('orangeForm-author').value
   let numberOfPages = document.getElementById('orangeForm-np').value;
@@ -28,6 +29,19 @@ createButton.onclick = function addBookToLibrary() {
   
   save();
 }
+}
+
+
+function validateForm() {
+  let name = document.getElementById('orangeForm-name').value
+  let author = document.getElementById('orangeForm-author').value
+  let numberOfPages = document.getElementById('orangeForm-np').value;
+  if (name == "" || author === ""|| numberOfPages=== "") {
+    alert("All the fields must be filled out");
+    return false;
+  }
+  return true;
+} 
 
 deleteButton.onclick = function delete_book(e) {
       if(e.target.className == 'btn btn-danger bbd'){
